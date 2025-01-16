@@ -5,7 +5,8 @@ This occurs if you use the InvertedBoolConverter (probably occurs with any of th
 
 # Reproduction Steps
 1. Clone this repo
-2. Build using `dotnet publish -f net9.0-ios -r ios-arm64`
+2. Replace the ApplicationId in MauiCommunityToolkitTrimIssue.csproj with something you have an provisioning profile for
+3. Build using `dotnet publish -f net9.0-ios -r ios-arm64`
 -> Trim warnings are printed
 
 # Trim Warnings
