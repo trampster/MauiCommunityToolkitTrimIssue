@@ -1,0 +1,18 @@
+# Maui.CommunityToolkit NativeAOT Trim issue reproduction
+This repository is a reproduction of the Trim warnings that occur when building with iOS with NativeAOT https://github.com/CommunityToolkit/Maui/issues/2447
+
+This occurs if you use the InvertedBoolConverter (probably occurs with any of the value converters)
+
+# Reproduction Steps
+1. Clone this repo
+2. Build using `dotnet publish -f net9.0-ios -r ios-arm64`
+-> Trim warnings are printed
+
+# Trim Warnings
+```
+    ILC : Trim analysis warning IL2092: CommunityToolkit.Maui.Converters.ICommunityToolkitValueConverter.Microsoft.Maui.Controls.IValueConverter.Convert(Object,Type,Object,CultureInfo): 'DynamicallyAccessedMemberTypes' in 'DynamicallyAccessedMembersAttribute' on the parameter '' of method 'CommunityToolkit.Maui.Converters.ICommunityToolkitValueConverter.Microsoft.Maui.Controls.IValueConverter.Convert(Object,Type,Object,CultureInfo)' don't match overridden parameter '' of method 'Microsoft.Maui.Controls.IValueConverter.Convert(Object,Type,Object,CultureInfo)'. All overridden members must have the same 'DynamicallyAccessedMembersAttribute' usage.
+    ILC : Trim analysis warning IL2092: CommunityToolkit.Maui.Converters.ICommunityToolkitValueConverter.Microsoft.Maui.Controls.IValueConverter.ConvertBack(Object,Type,Object,CultureInfo): 'DynamicallyAccessedMemberTypes' in 'DynamicallyAccessedMembersAttribute' on the parameter '' of method 'CommunityToolkit.Maui.Converters.ICommunityToolkitValueConverter.Microsoft.Maui.Controls.IValueConverter.ConvertBack(Object,Type,Object,CultureInfo)' don't match overridden parameter '' of method 'Microsoft.Maui.Controls.IValueConverter.ConvertBack(Object,Type,Object,CultureInfo)'. All overridden members must have the same 'DynamicallyAccessedMembersAttribute' usage.
+    ILC : Trim analysis warning IL2092: CommunityToolkit.Maui.Converters.ICommunityToolkitValueConverter.Microsoft.Maui.Controls.IValueConverter.Convert(Object,Type,Object,CultureInfo): 'DynamicallyAccessedMemberTypes' in 'DynamicallyAccessedMembersAttribute' on the parameter '' of method 'CommunityToolkit.Maui.Converters.ICommunityToolkitValueConverter.Microsoft.Maui.Controls.IValueConverter.Convert(Object,Type,Object,CultureInfo)' don't match overridden parameter '' of method 'Microsoft.Maui.Controls.IValueConverter.Convert(Object,Type,Object,CultureInfo)'. All overridden members must have the same 'DynamicallyAccessedMembersAttribute' usage.
+    ILC : Trim analysis warning IL2092: CommunityToolkit.Maui.Converters.ICommunityToolkitValueConverter.Microsoft.Maui.Controls.IValueConverter.ConvertBack(Object,Type,Object,CultureInfo): 'DynamicallyAccessedMemberTypes' in 'DynamicallyAccessedMembersAttribute' on the parameter '' of method 'CommunityToolkit.Maui.Converters.ICommunityToolkitValueConverter.Microsoft.Maui.Controls.IValueConverter.ConvertBack(Object,Type,Object,CultureInfo)' don't match overridden parameter '' of method 'Microsoft.Maui.Controls.IValueConverter.ConvertBack(Object,Type,Object,CultureInfo)'. All overridden members must have the same 'DynamicallyAccessedMembersAttribute' usage.
+    /_/src/CommunityToolkit.Maui/Extensions/ValueConverterExtension.shared.cs(31): Trim analysis warning IL2062: CommunityToolkit.Maui.Extensions.ValueConverterExtension.IsValidTargetType<TTarget>(Type&,Boolean): Value passed to parameter 'type' of method 'System.Activator.CreateInstance(Type)' can not be statically determined and may not meet 'DynamicallyAccessedMembersAttribute' requirements.
+```
